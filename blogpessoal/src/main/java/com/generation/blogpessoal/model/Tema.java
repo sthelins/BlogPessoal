@@ -23,7 +23,7 @@ public class Tema {
 	private Long id;
 	
 	@NotBlank(message = "o atributo decrição é obrigatório!")
-	@Size(max =500, message = "o atributo descrição máximo 100 caracteres")
+	@Size(max =500, message = "o atributo descrição máximo 500 caracteres")
 	private String descricao;
 	
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
