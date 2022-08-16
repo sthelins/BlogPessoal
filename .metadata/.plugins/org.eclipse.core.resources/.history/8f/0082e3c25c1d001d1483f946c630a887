@@ -1,0 +1,40 @@
+package com.generation.blogpessoal.repository;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.generation.blogpessoal.model.Usuario;
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class UsuarioRepositoryTest {
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@BeforeAll
+	void start() {
+		usuarioRepository.deleteAll();
+		
+		usuarioRepository.save(new Usuario(0L, "João", "joao@gmail.com", "123234132", "url"));
+		usuarioRepository.save(new Usuario(0L, "Sthefany", "sthefany@gmail.com", "12fasa132", "url"));
+		usuarioRepository.save(new Usuario(0L, "nicolas", "nicolas@gmail.com", "afas234132", "url"));
+		usuarioRepository.save(new Usuario(0L, "cecilia", "cecilia@gmail.com", "123234132", "url"));
+	}
+	
+	@Test
+	@DisplayName("Retornar 1 usuário")
+	public void deveRetornarUmUsuario() {
+		Optional<Usuario> usuario = usuarioRepository.findByUsuario("joao@gmail.com");
+		assertTrue(usuario.get().getUsuario().equals("joao@gmail.com"));
+	}
+
+}
